@@ -32,7 +32,6 @@ namespace Zadanie4_InnePodejscie
             foreach (var item in deserializationOfAdvanced)
             {
                 deserialization.FirstOrDefault(x => x.Conference == item.Conference).Advanced.Add(item);
-                //deserialization.SingleOrDefault(x => x.School == item.Seasons.FirstOrDefault().School).coaches.Add(item);
             }
             var addTasks = deserialization.Select(x => db.AddAsync(x).AsTask());
             await Task.WhenAll(addTasks);
