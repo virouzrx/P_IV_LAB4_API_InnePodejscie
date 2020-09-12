@@ -21,7 +21,7 @@ namespace Zadanie4_InnePodejscie
             var tasks = new List<Task<IRestResponse>>();
             foreach (var item in deserialization)
             {
-                var advanced = api.DownloadAsync($"/stats/season/advanced?conference={item.Conference}");
+                var advanced = api.DownloadAsync($"/stats/season/advanced?year=2020&conference={item.Conference}");
                 tasks.Add(advanced);
             //------
             }
@@ -33,8 +33,7 @@ namespace Zadanie4_InnePodejscie
             {
                 deserialization.FirstOrDefault(x => x.Conference == item.Conference).Advanced.Add(item);
             }
-            var addTasks = deserialization.Select(x => db.AddAsync(x).AsTask());
-            await Task.WhenAll(addTasks);
+            var addTasks = deserialization.Select(x => db.Add(x));
             await db.SaveChangesAsync();
         }
     }
